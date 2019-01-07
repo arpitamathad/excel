@@ -1,9 +1,14 @@
 package pack1;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.util.Date;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -28,10 +33,18 @@ public class Excel {
 			Assert.assertEquals(actTitle, expTitle);
 			System.out.println(actTitle.equals(expTitle));
 			Thread.sleep(2000);
+			Date d = new Date();
+			String dateTime = d.toString().replaceAll(":","_");
+			String path = "./photos/"+dateTime+".png";
+			TakesScreenshot t = (TakesScreenshot)driver;
+			File srcFile = t.getScreenshotAs(OutputType.FILE);
+			File destFile = new File(path);
+			FileUtils.copyFile(srcFile, destFile);	
 			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		driver.close();
 	}
 }
