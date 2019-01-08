@@ -1,14 +1,8 @@
 package pack1;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.util.Date;
-
-import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -47,6 +41,13 @@ public class Excel {
 		
 		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
+		driver.get(links);
+		System.out.println(links);
+		String actual = driver.getTitle();
+		Assert.assertEquals(actual, expected);
+		System.out.println(actual+" "+expected);
+		driver.close();
+		
 //		try {
 //			Workbook w = WorkbookFactory.create(new FileInputStream("./data/links.xlsx"));
 //			String link;
@@ -71,11 +72,6 @@ public class Excel {
 //		catch(Exception e) {
 //			e.printStackTrace();
 //		}
-		driver.get(links);
-		System.out.println(links);
-		String actual = driver.getTitle();
-		Assert.assertEquals(actual, expected);
-		System.out.println(actual+" "+expected);
-		driver.close();
+		
 	}
 }
